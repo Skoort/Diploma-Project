@@ -5,7 +5,7 @@ pathToTemplate = 'Data/template.obj';
 pathToRegions = "Data/template_color.ply";
 pathToFaces = 'Data/Faces';
 
-addpath(genpath('../../..'));
+addpath(genpath('C:/Users/HP/Documents/GitHub/meshmonk'));
 
 %
 averageFace = LoadFace(pathToAverage);
