@@ -28,7 +28,16 @@ splicedFace = SpliceFacesTogether(template, faces, numRegions, indicesByRegion, 
 %SpliceFacesTogetherCloud(pathToRegions, numRegions, indicesByRegion, numMergedFaces, chosenFacesByRegion);
 
 
-v = DrawFace(splicedFace, "Spliced face", false);
+v1 = DrawFace(splicedFace, "Spliced face", false);
+
+
+averageAfterSplice = true;
+if averageAfterSplice
+   splicedFace = AverageFace(splicedFace);
+end
+
+
+v2 = DrawFace(splicedFace, "Spliced face after average", false);
 
 
 mergeOptions = ["MERGE_SIMPLE", "MERGE_SMOOTH_DIST", "MERGE_3"];
@@ -46,7 +55,7 @@ else
 end
 
 
-DrawFace(collageFace, "Merge before fit");
+v3 = DrawFace(collageFace, "Merge before fit");
 
 
 numFits = 1;
@@ -55,7 +64,7 @@ for i=1:numFits
 end
 
 
-DrawFace(collageFace, "Merge after fit");
+v4 = DrawFace(collageFace, "Merge after fit");
 
 
 interpAmount = 0.8;
@@ -63,7 +72,7 @@ interpAmount = 0.8;
 interpolatedFace = InterpFace(splicedFace, collageFace, interpAmount);  % <- Done
 
 
-DrawFace(interpolatedFace, "Interpolated face", false);
+v5 = DrawFace(interpolatedFace, "Interpolated face", false);
 
 
 factorOfAverage = 0.3;

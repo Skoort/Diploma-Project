@@ -85,12 +85,10 @@ function collageFace = MergeSmooth(OBJs, splicedFace, numRegions, regionByIndex,
                                                    % After some amount, in this case twice the max gap distance of the nearest border vertex, completely use this region.
                                             
 
-                %{ 
                 % If we want to force all the edges to play fair and say 50/50.
                 if s_ < 0.5
                    s_ = 0.5; 
                 end
-                %}
                 if s_ >= 1
                     continue;
                 end
