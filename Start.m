@@ -31,14 +31,6 @@ splicedFace = SpliceFacesTogether(template, faces, numRegions, indicesByRegion, 
 v1 = DrawFace(splicedFace, "Spliced face", false);
 
 
-averageAfterSplice = true;
-if averageAfterSplice
-   splicedFace = AverageFace(splicedFace);
-end
-
-
-v2 = DrawFace(splicedFace, "Spliced face after average", false);
-
 
 mergeOptions = ["MERGE_SIMPLE", "MERGE_SMOOTH_DIST", "MERGE_3"];
 selectedMergeOption = 2;
@@ -66,13 +58,48 @@ end
 
 v4 = DrawFace(collageFace, "Merge after fit");
 
+face = clone(collageFace);
+face.VertexRGB = zeros(size(face.Vertices));
+for i = 1:size(face.Vertices, 1)
+    face.VertexRGB(i, :) = [1, 1, 1] * i / size(face.Vertices, 1);
+end
+face.ColorMode = 'texture';
+
+verts = readmatrix("Data/template_middle_verts.txt");
+
+face.VertexRGB(verts, :) = repmat([1, 0, 0], length(verts), 1);
+
+i = 2999;
+
+face.VertexRGB(i, :) = [0, 1, 0];
+face.VertexRGB(face.nVertices - (i - 1), :) = [0, 0, 1];
+
+vT = DrawFace(face, "Do colors match?");
+
+
+symmetryFactor = 1;
+collageFace2 = IntroduceSymmetry(collageFace, symmetryFactor);
+
+
+v5 = DrawFace(collageFace2, "After introducing symmetry.");
+%}
+
+
+smoothSymmetryFace = AverageFace(collageFace2);
+
+v6 = DrawFace(smoothSymmetryFace, "Symmetry face after average", false);
+
+
+
+
+collageFace2 = smoothSymmetryFace;
 
 interpAmount = 0.8;
 
-interpolatedFace = InterpFace(splicedFace, collageFace, interpAmount);  % <- Done
+interpolatedFace = InterpFace(splicedFace, smoothSymmetryFace, interpAmount);  % <- Done
 
 
-v5 = DrawFace(interpolatedFace, "Interpolated face", false);
+v7 = DrawFace(interpolatedFace, "Interpolated face", false);
 
 
 factorOfAverage = 0.3;
