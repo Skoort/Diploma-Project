@@ -37,7 +37,8 @@ selectedMergeOption = 2;
 shouldAverageWeights = true;
 
 if selectedMergeOption == 1
-    collageFace = MergeSimple(splicedFace, shouldAverageWeights);  % <- To implement.
+    maxDistanceToSmooth = 2;
+    collageFace = MergeSimple(faces, splicedFace, numRegions, regionByIndex, indicesByRegion, chosenFaces, chosenFacesByRegion, shouldAverageWeights, maxDistanceToSmooth);  % <- Done
 elseif selectedMergeOption == 2
     collageFace = MergeSmooth(faces, splicedFace, numRegions, regionByIndex, indicesByRegion, chosenFaces, chosenFacesByRegion, shouldAverageWeights);  % <- Done
 elseif selectedMergeOption == 3
@@ -69,7 +70,7 @@ verts = readmatrix("Data/template_middle_verts.txt");
 
 face.VertexRGB(verts, :) = repmat([1, 0, 0], length(verts), 1);
 
-i = 2999;
+i = 4000;
 
 face.VertexRGB(i, :) = [0, 1, 0];
 face.VertexRGB(face.nVertices - (i - 1), :) = [0, 0, 1];
@@ -77,7 +78,7 @@ face.VertexRGB(face.nVertices - (i - 1), :) = [0, 0, 1];
 vT = DrawFace(face, "Do colors match?");
 
 
-symmetryFactor = 1;
+symmetryFactor = 0.5;
 collageFace2 = IntroduceSymmetry(collageFace, symmetryFactor);
 
 
@@ -92,18 +93,22 @@ v6 = DrawFace(smoothSymmetryFace, "Symmetry face after average", false);
 
 
 
-collageFace2 = smoothSymmetryFace;
+smoothSymmetryFace2 = MeshFit2(smoothSymmetryFace);  % <- Done
+
+v7 = DrawFace(smoothSymmetryFace2, "Symmetry face after average and refitting.", false);
+
+
 
 interpAmount = 0.8;
 
-interpolatedFace = InterpFace(splicedFace, smoothSymmetryFace, interpAmount);  % <- Done
+interpolatedFace = InterpFace(splicedFace, smoothSymmetryFace2, interpAmount);  % <- Done
 
 
-v7 = DrawFace(interpolatedFace, "Interpolated face", false);
+v8 = DrawFace(interpolatedFace, "Interpolated face", false);
 
 
 factorOfAverage = 0.3;
 finalFace = interpolatedFace;
 numBins = 11;
 upperAngleLimit = 90;
-HistogramStuff(averageFace, factorOfAverage, faces, chosenFaces, finalFace, numBins, upperAngleLimit);
+HistogramStuff(averageFace, factorOfAverage, faces, chosenFaces, finalFace, numBins, upperAngleLimit, indicesByRegion);
