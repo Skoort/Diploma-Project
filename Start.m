@@ -78,7 +78,7 @@ face.VertexRGB(face.nVertices - (i - 1), :) = [0, 0, 1];
 vT = DrawFace(face, "Do colors match?");
 
 
-symmetryFactor = 0.5;
+symmetryFactor = .5;
 collageFace2 = IntroduceSymmetry(collageFace, symmetryFactor);
 
 

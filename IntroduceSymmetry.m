@@ -4,6 +4,13 @@ function newFace = IntroduceSymmetry(oldFace, symmetryFactor)
     newFace = clone(oldFace);
     
     middle_verts = readmatrix("Data/template_middle_verts.txt");
+    template_swapped_verts = readmatrix("Data/template_swapped_verts.txt");
+    template_correct_verts = template_swapped_verts;
+    for i = 1:2:length(template_correct_verts)
+        t = template_correct_verts(i+1);
+        template_correct_verts(i+1) = template_correct_verts(i);
+        template_correct_verts(i) = t;
+    end
     
     for i = 1:newFace.nVertices
         k = i - 1;
@@ -26,6 +33,10 @@ function newFace = IntroduceSymmetry(oldFace, symmetryFactor)
             newFace.Vertices(i, 3) = average;
             %}
         else
+            loc = ismember(template_swapped_verts, i);
+            if any(loc)
+                j = oldFace.nVertices - (template_correct_verts(loc) - 1);
+            end
             average = (oldFace.Vertices(i, 3) + oldFace.Vertices(j, 3)) / 2;
             
             newFace.Vertices(i, 3) = newFace.Vertices(i, 3) + (average - newFace.Vertices(i, 3)) * symmetryFactor;
