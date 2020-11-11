@@ -33,15 +33,21 @@ v1 = DrawFace(splicedFace, "Spliced face", false);
 
 
 mergeOptions = ["MERGE_SIMPLE", "MERGE_SMOOTH_DIST", "MERGE_3"];
-selectedMergeOption = 2;
+selectedMergeOption = 3;
 shouldAverageWeights = true;
 
 if selectedMergeOption == 1
     maxDistanceToSmooth = 2;
     collageFace = MergeSimple(faces, splicedFace, numRegions, regionByIndex, indicesByRegion, chosenFaces, chosenFacesByRegion, shouldAverageWeights, maxDistanceToSmooth);  % <- Done
 elseif selectedMergeOption == 2
-    collageFace = MergeSmooth(faces, splicedFace, numRegions, regionByIndex, indicesByRegion, chosenFaces, chosenFacesByRegion, shouldAverageWeights);  % <- Done
+    maxDistanceToSmooth = 2;
+    collageFace = MergeSimplePercent(faces, splicedFace, numRegions, regionByIndex, indicesByRegion, chosenFaces, chosenFacesByRegion, shouldAverageWeights, maxDistanceToSmooth);  % <- Done
 elseif selectedMergeOption == 3
+    collageFace = MergeSmooth(faces, splicedFace, numRegions, regionByIndex, indicesByRegion, chosenFaces, chosenFacesByRegion, shouldAverageWeights);  % <- Done
+elseif selectedMergeOption == 4
+    maxDistanceToSmooth = 2;
+    collageFace = MergeSmoothPercent(faces, splicedFace, numRegions, regionByIndex, indicesByRegion, chosenFaces, chosenFacesByRegion, shouldAverageWeights, maxDistanceToSmooth);  % <- Done
+elseif selectedMergeOption == 5
     collageFace = Merge3(splicedFace, shouldAverageWeights);  % <- To implement.
 else
     warning("Incorrect merge option selected!");
@@ -86,17 +92,22 @@ v5 = DrawFace(collageFace2, "After introducing symmetry.");
 %}
 
 
-smoothSymmetryFace = AverageFace(collageFace2);
+shouldAverageFaceAfterSymmetry = false;
+if shouldAverageFaceAfterSymmetry
+	smoothSymmetryFace = AverageFace(collageFace2);
 
-v6 = DrawFace(smoothSymmetryFace, "Symmetry face after average", false);
+	v6 = DrawFace(smoothSymmetryFace, "Symmetry face after average", false);
+end
 
 
+shouldFitMeshAgainAfterSymmetry = false;
+if shouldFitMeshAgainAfterSymmetry
+	smoothSymmetryFace2 = MeshFit2(smoothSymmetryFace);  % <- Done
 
-
-smoothSymmetryFace2 = MeshFit2(smoothSymmetryFace);  % <- Done
-
-v7 = DrawFace(smoothSymmetryFace2, "Symmetry face after average and refitting.", false);
-
+	v7 = DrawFace(smoothSymmetryFace2, "Symmetry face after average and refitting.", false);
+else
+	smoothSymmetryFace2 = smoothSymmetryFace;
+end
 
 
 interpAmount = 0.8;
