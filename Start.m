@@ -16,7 +16,7 @@ template = LoadFace(pathToTemplate);
 [numFaces, faces] = LoadFaces(pathToFaces);
 %%numFaces = 10;
 
-numMergedFaces = 4;
+numMergedFaces = 6;
 [chosenFaces, chosenFacesByRegion] = ChooseRandomFaces(numFaces, numRegions, numMergedFaces);
 
 shouldFilterRegions = true;
@@ -84,7 +84,7 @@ face.VertexRGB(face.nVertices - (i - 1), :) = [0, 0, 1];
 vT = DrawFace(face, "Do colors match?");
 
 
-symmetryFactor = .5;
+symmetryFactor = 1;
 collageFace2 = IntroduceSymmetry(collageFace, symmetryFactor);
 
 
@@ -97,6 +97,8 @@ if shouldAverageFaceAfterSymmetry
 	smoothSymmetryFace = AverageFace(collageFace2);
 
 	v6 = DrawFace(smoothSymmetryFace, "Symmetry face after average", false);
+else
+    smoothSymmetryFace = collageFace2;
 end
 
 

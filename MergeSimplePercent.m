@@ -42,8 +42,8 @@ function collageFace = MergeSimple(OBJs, splicedFace, numRegions, regionByIndex,
 		regionDepth = 0;
 		regionCopy = region;
 		while true
-			innerVerts = GetInsideBorderVerts(collageFace, region);
-			nextRegionCopy = setdiff(region, innerVerts);
+			innerVerts = GetInsideBorderVerts(collageFace, regionCopy);
+			nextRegionCopy = setdiff(regionCopy, innerVerts);
 			
 			if length(nextRegionCopy) == 0
 				regionCenter = sum(collageFace.Vertices(innerVerts, :)) / length(innerVerts);
