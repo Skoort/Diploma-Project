@@ -7,7 +7,27 @@
 % Make all the faces the same human color.
 % Bonus: Also, look into showing a 3D model in HTML. Worst case scenario,
 % put a file link 
+% Center the light in front of the face.
+% Make a row for each constituent face before the initial collage followed
+% by the outputs.
+% Add a hyperlink to the obj for the Output 7.1 for example.
+% Make the paths to the pictures relative paths.
+% Easier than API. Have a results page, and make a dictionary of faces and
+% if they were checked. When you vote it adds to the results in results
+% page. Have a reset button to reset the results. Save to results file that
+% a results page displays.
 
+% All examples on one page. Have a checkbox next to each output with a name
+% and then in Javascript iterate over these checkboxes and increment that
+% name in the dictionary if it is checked. Then, show all the results at
+% the bottom if the user clicks Collect Results. Add a reset checkboxes
+% button as well.
+% Include a timestamp (Date and time) in the output.
+
+% Replace the usegraphics for the images with figures like.
+% A je kaksna metoda, ki posebej nastopa. Vrednotenje metod z anketiranjem.
+% Vrednotenje je eden od rezultatov, koti so ena od objektivnih mer.
+% Look for 2D and 3D collage research papers.
 
 pathToAverage = 'Data/average.obj';
 pathToTemplate = 'Data/template.obj';
@@ -146,6 +166,7 @@ for exampleId = 1:numExamples
     v8.SceneLightLinked = true;
     v8.CameraTarget = [0, 0, 0];
     v8.CameraUpVector = [0, 1, 0];
+    v8.SceneLightPosition = [0, 0, 180];
     
     % Right
     v8.CameraPosition = [-180, 0, 0];

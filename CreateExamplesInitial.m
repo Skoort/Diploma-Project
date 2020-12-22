@@ -66,7 +66,8 @@ for currExample = 1:8
         v8.SceneLightLinked = true;
         v8.CameraTarget = [0, 0, 0];
         v8.CameraUpVector = [0, 1, 0];
-
+        v8.SceneLightPosition = [0, 0, 180];
+        
         % Right
         v8.CameraPosition = [-180, 0, 0];
         saveas(v8.Figure, [path, '\part', num2str(i), '-Right.png']);
@@ -103,7 +104,7 @@ for currExample = 1:8
     v.SceneLightLinked = true;
     v.CameraTarget = [0, 0, 0];
     v.CameraUpVector = [0, 1, 0];
-
+    v.SceneLightPosition = [0, 0, 180];
     
     % View right side.
     v.CameraPosition = [-180, 0, 0];
