@@ -40,13 +40,17 @@ if selectedMergeOption == 1
     maxDistanceToSmooth = 2;
     collageFace = MergeSimple(faces, splicedFace, numRegions, regionByIndex, indicesByRegion, chosenFaces, chosenFacesByRegion, shouldAverageWeights, maxDistanceToSmooth);  % <- Done
 elseif selectedMergeOption == 2
-    maxDistanceToSmooth = 2;
+    maxDistanceToSmooth = 0.25;
     collageFace = MergeSimplePercent(faces, splicedFace, numRegions, regionByIndex, indicesByRegion, chosenFaces, chosenFacesByRegion, shouldAverageWeights, maxDistanceToSmooth);  % <- Done
+    %collageFace = ColorMerge(faces, splicedFace, numRegions, regionByIndex, indicesByRegion, chosenFaces, chosenFacesByRegion, shouldAverageWeights, maxDistanceToSmooth);  % <- Done
 elseif selectedMergeOption == 3
+    % NOTE: Not using distance here.
     collageFace = MergeSmooth(faces, splicedFace, numRegions, regionByIndex, indicesByRegion, chosenFaces, chosenFacesByRegion, shouldAverageWeights);  % <- Done
+    %collageFace = ColorMerge(faces, splicedFace, numRegions, regionByIndex, indicesByRegion, chosenFaces, chosenFacesByRegion, shouldAverageWeights, 4);  % <- Done
 elseif selectedMergeOption == 4
-    maxDistanceToSmooth = 2;
+    maxDistanceToSmooth = 1;
     collageFace = MergeSmoothPercent(faces, splicedFace, numRegions, regionByIndex, indicesByRegion, chosenFaces, chosenFacesByRegion, shouldAverageWeights, maxDistanceToSmooth);  % <- Done
+    %collageFace = ColorMerge(faces, splicedFace, numRegions, regionByIndex, indicesByRegion, chosenFaces, chosenFacesByRegion, shouldAverageWeights, maxDistanceToSmooth);  % <- Done
 elseif selectedMergeOption == 5
     collageFace = Merge3(splicedFace, shouldAverageWeights);  % <- To implement.
 else
@@ -56,6 +60,15 @@ end
 
 v3 = DrawFace(collageFace, "Merge before fit");
 
+% NOTE: This is to make the colors in correct place. Remove this.
+v3.SceneLightVisible = true;
+v3.SceneLightLinked = true;
+v3.CameraTarget = [0, 0, 0];
+v3.CameraUpVector = [0, 1, 0];
+v3.SceneLightPosition = [0, 0, 180];
+v3.CameraPosition = [0, 0, 180];
+writePath = 'Examples/Region coloring';
+saveas(v3.Figure, [writePath, '\regionsSimplePercent0_1.png']);
 
 numFits = 1;
 for i=1:numFits
