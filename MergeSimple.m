@@ -1,5 +1,3 @@
-% Currently treats each region differently, even if two neighboring regions
-% belong to the same face.
 function collageFace = MergeSimple(OBJs, splicedFace, numRegions, regionByIndex, indicesByRegion, chosenFaces, chosenFacesByRegion, shouldAverageWeights, maxDistanceToSmooth)
 
     collageFace = clone(splicedFace);

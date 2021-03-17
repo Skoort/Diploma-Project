@@ -1,6 +1,3 @@
-% MERGE_SIMPLE_PERCENT
-% Currently treats each region differently, even if two neighboring regions
-% belong to the same face.
 function collageFace = ColorMerge(OBJs, splicedFace, numRegions, regionByIndex, indicesByRegion, chosenFaces, chosenFacesByRegion, shouldAverageWeights, maxDistanceToSmooth)
 
 	maxDistanceToSmooth = max(maxDistanceToSmooth, 0);  % The maximum relative distance to smooth. Can also put something like twice that distance.

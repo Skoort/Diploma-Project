@@ -1,4 +1,3 @@
-% Ask Aljaz for a smaller region face with 6 regions.
 
 pathToAverage = 'Data/average.obj';
 pathToTemplate = 'Data/template.obj';

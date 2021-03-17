@@ -1,4 +1,3 @@
-% Add this to path and run it from Diploma-Project.
 
 pathToAverage = 'Data/average.obj';
 pathToTemplate = 'Data/template.obj';

@@ -1,5 +1,3 @@
-% Currently treats each region differently, even if two neighboring regions
-% belong to the same face.
 function collageFace = MergeSimplePercent(OBJs, splicedFace, numRegions, regionByIndex, indicesByRegion, chosenFaces, chosenFacesByRegion, shouldAverageWeights, maxDistanceToSmooth)
 
 	maxDistanceToSmooth = max(maxDistanceToSmooth, 0);  % The maximum relative distance to smooth. Can also put something like twice that distance.
@@ -36,13 +34,16 @@ function collageFace = MergeSimplePercent(OBJs, splicedFace, numRegions, regionB
             distList_ = Distance(collageFace.Vertices(v_, :), verts_);
             outerDists(j) = AggregateDistances(distList_);
         end
-		
+		v = viewer(collageFace);
 		% Find the minimum distance from one of the outer vertices to the average of the last ring.
 		regionCenter = [0, 0, 0];
 		regionDepth = 0;
 		regionCopy = region;
+        collageFace.ColorMode = 'texture';
 		while true
 			innerVerts = GetInsideBorderVerts(collageFace, regionCopy);
+            
+            collageFace.VertexRGB(innerVerts, :) = repmat([1, 0, 1], length(innerVerts), 1);
 			nextRegionCopy = setdiff(regionCopy, innerVerts);
 			
 			if length(nextRegionCopy) == 0
